@@ -1,0 +1,12 @@
+# Rust
+/target
+**/*.rs.bk
+
+# Dioxus
+/dist
+/dx
+/.dioxus
+
+# Ambiente
+.env
+.DS_Store

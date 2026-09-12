@@ -89,7 +89,19 @@ portfolio/
 
 ## Fases
 
-**Fase 1 — Scaffold e smoke test do deploy (gate curto).**
+**Fase 1 — Scaffold e smoke test do deploy (gate curto). CONCLUÍDA em 2026-09-12.**
+
+Resultado do gate: `next build` gerou `out/index.html`, `out/404.html`,
+`out/_not-found.html` e um HTML por slug em `out/projects/`. No HTML bruto da rota
+dinâmica aparecem o texto da página, o `<title>` com o template do layout raiz, a
+`description` e o `og:title` — SSG real, não shell CSR. A fonte do Pages foi trocada
+para `build_type: workflow`, o workflow rodou verde e `https://tavaressan.github.io/`
+responde **200** com o conteúdo servido no HTML (antes: 404). Pendência menor: o run
+emite aviso de depreciação do Node 20 nas actions `checkout@v4`, `setup-node@v4`,
+`cache@v4`, `configure-pages@v5`, `upload-artifact@v4` e `deploy-pages@v4` — não
+bloqueia, o runner força Node 24.
+
+Passos executados:
 
 1. `npx create-next-app@16.3.5` com TypeScript e App Router.
 2. `next.config.ts` com `output: 'export'` e `basePath: process.env.PAGES_BASE_PATH`.

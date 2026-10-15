@@ -1,0 +1,82 @@
+/* Ambientes: Paper e Night são declarados por seção, nunca alternados pelo usuário */
+.vt,
+.env-paper {
+  --bg: #efe9dd;
+  --bg-surface: #f7f3eb;
+  --bg-elevated: #fdfbf7;
+  --ink: #2a2420;
+  --ink-2: #6b6055;
+  --ink-3: #9a9183;
+  --terracotta: #b86b4a;
+  --terra-deep: #9c5a3d;
+  --terra-wash: rgba(184, 107, 74, 0.1);
+  --horizon: #6f8d9e;
+  --hz-wash: rgba(111, 141, 158, 0.1);
+  --rule: #d9d1c5;
+  --rule-sub: #e5ded3;
+  --focus: #9c5a3d;
+  --petal: #e4b6ae;
+  --nav-ground: rgba(239, 233, 221, 0.86);
+  color-scheme: light;
+}
+
+.env-night {
+  --bg: #1c1f25;
+  --bg-surface: #242830;
+  --bg-elevated: #2c3139;
+  --ink: #e6e0d6;
+  --ink-2: #9a9088;
+  --ink-3: #6b6258;
+  --terracotta: #d0845e;
+  --terra-deep: #c07750;
+  --terra-wash: rgba(208, 132, 94, 0.1);
+  --horizon: #8aaabb;
+  --hz-wash: rgba(138, 170, 187, 0.1);
+  --rule: #333840;
+  --rule-sub: #2a2f36;
+  --focus: #d0845e;
+  --petal: #c99a94;
+  --nav-ground: rgba(28, 31, 37, 0.86);
+  --scrim: linear-gradient(to right, rgba(28, 31, 37, 0.4) 0%, rgba(28, 31, 37, 0.22) 30%, rgba(28, 31, 37, 0) 58%);
+  color-scheme: dark;
+}
+
+.env-paper,
+.env-night {
+  color: var(--ink);
+}
+
+/* Material de cada seção: uma pista por tipo de ambiente */
+.ruler {
+  height: 12px;
+  background:
+    repeating-linear-gradient(90deg, var(--ink-3) 0 1px, transparent 1px 40px) left top / 100% 12px no-repeat,
+    repeating-linear-gradient(90deg, var(--ink-3) 0 1px, transparent 1px 8px) left top / 100% 6px no-repeat;
+}
+
+.horizon-sky {
+  background-color: var(--bg);
+  background-image: linear-gradient(var(--hz-wash), var(--hz-wash));
+}
+
+.horizon-line {
+  display: block;
+  height: 1px;
+  background: var(--horizon);
+  transform-origin: left;
+}
+
+.sheet-grid {
+  --sheet: var(--bg-surface);
+  background-color: var(--bg-surface);
+  background-image:
+    linear-gradient(var(--rule-sub) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rule-sub) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-position: -1px -1px;
+}
+
+.sheet-grid.is-elevated {
+  --sheet: var(--bg-elevated);
+  background-color: var(--bg-elevated);
+}

@@ -1,0 +1,136 @@
+.manifesto {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
+  padding-top: 128px;
+  padding-bottom: 96px;
+}
+
+.manifesto__grid {
+  row-gap: 96px;
+}
+
+.manifesto__head {
+  grid-column: 1 / span 8;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  row-gap: 40px;
+}
+.manifesto__title {
+  grid-column: 1 / -1;
+}
+.manifesto__lead {
+  grid-column: 3 / span 6;
+  margin: 0;
+  max-width: 44ch;
+}
+
+.steps {
+  grid-column: 3 / span 10;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  column-gap: var(--gutter);
+}
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.step > p,
+.step > h3 {
+  margin: 0;
+}
+.step .step__index {
+  margin-top: 4px;
+}
+
+.draw-rule {
+  display: block;
+  height: 1px;
+  background: var(--rule);
+  transform-origin: left;
+}
+
+/* Petal: posições e tempos próprios de cada pétala */
+.petals {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  pointer-events: none;
+}
+.petal {
+  position: absolute;
+  left: 0;
+  width: 22px;
+  height: 16px;
+  opacity: 0;
+  fill: var(--petal);
+}
+.petal:nth-child(1) {
+  top: 14px;
+  --tx: 46vw;
+  --ty: 34px;
+  --rot: 190deg;
+}
+.petal:nth-child(2) {
+  top: 40px;
+  --tx: 62vw;
+  --ty: 52px;
+  --rot: 240deg;
+  animation-duration: 1400ms !important;
+  animation-delay: 120ms !important;
+}
+.petal:nth-child(3) {
+  top: 6px;
+  --tx: 38vw;
+  --ty: 60px;
+  --rot: 150deg;
+  animation-duration: 900ms !important;
+  animation-delay: 220ms !important;
+}
+.petal:nth-child(4) {
+  top: 56px;
+  --tx: 70vw;
+  --ty: 28px;
+  --rot: 280deg;
+  animation-duration: 1300ms !important;
+  animation-delay: 300ms !important;
+}
+.petal:nth-child(5) {
+  top: 28px;
+  --tx: 54vw;
+  --ty: 44px;
+  --rot: 210deg;
+  animation-duration: 1000ms !important;
+  animation-delay: 420ms !important;
+}
+
+@media (max-width: 1023px) {
+  .manifesto__head {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 24px;
+  }
+  .manifesto__grid {
+    row-gap: 24px;
+  }
+  .steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 40px;
+  }
+}
+
+@media (max-width: 639px) {
+  .steps {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .petals {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .petals {
+    display: none;
+  }
+}

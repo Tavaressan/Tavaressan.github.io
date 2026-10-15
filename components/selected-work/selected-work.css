@@ -1,0 +1,307 @@
+.work {
+  position: relative;
+  background: var(--bg);
+  padding: 128px 0;
+}
+.work > .ruler {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.pin {
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+}
+
+.work__header {
+  row-gap: 24px;
+  align-items: end;
+}
+.work__heading {
+  grid-column: 1 / span 8;
+}
+.work__index {
+  grid-column: 10 / span 3;
+  margin: 0 0 6px;
+  text-align: right;
+}
+.work__index-current {
+  color: var(--ink);
+}
+
+/* Faixa: pranchas lado a lado, scroll horizontal nativo, a próxima prancha sempre à vista */
+.rail {
+  position: relative;
+  display: flex;
+  gap: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0 var(--edge);
+  scroll-padding-inline: var(--edge);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  outline: none;
+}
+.rail::-webkit-scrollbar {
+  display: none;
+}
+
+.slide {
+  flex: 0 0 min(1080px, 84%);
+  padding-left: 24px;
+  border-left: 1px solid var(--rule);
+  scroll-snap-align: start;
+}
+.slide.slide-exit {
+  flex-basis: min(480px, 70%);
+}
+
+/* Jornada fixada: a página continua rolando e esta parte viaja de lado. Só com JS (data-pinned),
+   movimento permitido e janela alta o bastante para o conteúdo (618px a partir de 1280px de largura,
+   666px abaixo disso, medidos); o resto mantém a faixa nativa acima. Manter igual a PINNED no componente. */
+@media (min-width: 1280px) and (min-height: 640px) and (prefers-reduced-motion: no-preference),
+  (min-width: 1024px) and (min-height: 680px) and (prefers-reduced-motion: no-preference) {
+  .work[data-pinned] {
+    padding: 0;
+  }
+  .work[data-pinned] .pin {
+    position: sticky;
+    top: 0;
+    /* Igual ao protótipo a partir de 760px de altura; abaixo disso, a altura da janela */
+    height: max(min(100vh, 760px), min(100vh, 62.5vw));
+    padding-top: var(--nav-h);
+    justify-content: center;
+    gap: 40px;
+    overflow: clip;
+  }
+  .work[data-pinned] .rail {
+    overflow: visible;
+    scroll-snap-type: none;
+    scroll-behavior: auto;
+    will-change: transform;
+  }
+}
+
+/* ---------- Entrada de projeto (prancha) ---------- */
+.entry {
+  row-gap: 32px;
+  text-decoration: none;
+  color: var(--ink);
+  cursor: pointer;
+}
+.entry:focus-visible {
+  outline-offset: 12px;
+}
+.entry__index {
+  grid-column: 1 / span 2;
+  margin: 12px 0 0;
+}
+.entry__body {
+  grid-column: 3 / span 5;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.entry__body > * {
+  margin: 0;
+}
+.entry__body .entry__category {
+  margin-top: 12px;
+}
+.entry__body .entry__summary {
+  margin-top: 4px;
+  max-width: 44ch;
+}
+.entry__facts {
+  margin: 8px 0 0 !important;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 40px;
+  row-gap: 8px;
+}
+.entry__facts > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.entry__facts dd {
+  margin: 0;
+}
+.entry__evidence {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.entry-figure {
+  position: relative;
+  grid-column: 8 / span 5;
+  aspect-ratio: 3 / 2;
+}
+.tick {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-color: var(--ink-3);
+  border-style: solid;
+  border-width: 0;
+}
+.tick.tl {
+  left: 0;
+  top: 0;
+  border-top-width: 1px;
+  border-left-width: 1px;
+}
+.tick.tr {
+  right: 0;
+  top: 0;
+  border-top-width: 1px;
+  border-right-width: 1px;
+}
+.tick.bl {
+  left: 0;
+  bottom: 0;
+  border-bottom-width: 1px;
+  border-left-width: 1px;
+}
+.tick.br {
+  right: 0;
+  bottom: 0;
+  border-bottom-width: 1px;
+  border-right-width: 1px;
+}
+
+/* DRAFT · a prancha desenrola por uma máscara horizontal e a régua é varrida, medium; a entrada não se move */
+.entry-sheet {
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--rule);
+  overflow: hidden;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path var(--duration-medium) var(--ease-standard);
+}
+.entry:hover .entry-sheet,
+.entry:focus-visible .entry-sheet,
+.entry.is-open .entry-sheet,
+.entry.is-current .entry-sheet {
+  clip-path: inset(0 0 0 0);
+}
+.entry.is-open .entry-sheet {
+  transition: none;
+}
+
+.entry__foot {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.entry-cta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+}
+.entry:hover .rule-ink,
+.entry:focus-visible .rule-ink,
+.exit:hover .rule-ink,
+.exit:focus-visible .rule-ink {
+  transform: scaleX(1);
+}
+.entry:hover .entry-cta .arrow,
+.entry:focus-visible .entry-cta .arrow,
+.exit:hover .arrow,
+.exit:focus-visible .arrow {
+  transform: translateX(var(--amp-nudge));
+  color: var(--terracotta);
+}
+/* MACHINE · pressionado e aberto são estados, aplicados de imediato */
+.entry:active .rule-ink,
+.entry.is-open .rule-ink {
+  transform: scaleX(1);
+  height: 2px;
+  top: -0.5px;
+}
+.entry:active .rule-ink {
+  transition: none;
+}
+
+/* Porta do arquivo */
+.exit {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 32px;
+  height: 100%;
+  text-decoration: none;
+  color: var(--ink);
+}
+.exit:focus-visible {
+  outline-offset: 12px;
+}
+.exit__body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.exit__overline {
+  margin-top: 12px;
+}
+.exit__text {
+  max-width: 32ch;
+}
+
+@media (max-width: 1023px) {
+  .rail {
+    padding: 0 40px;
+    scroll-padding-inline: 40px;
+  }
+  .slide {
+    flex-basis: 88%;
+  }
+}
+
+@media (max-width: 639px) {
+  .rail {
+    gap: 16px;
+    padding: 0 20px;
+    scroll-padding-inline: 20px;
+  }
+  .slide {
+    padding-left: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rail {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .entry-sheet {
+    clip-path: none;
+    opacity: 0;
+    transition: opacity var(--duration-short) var(--ease-standard);
+  }
+  .entry:hover .entry-sheet,
+  .entry:focus-visible .entry-sheet,
+  .entry.is-open .entry-sheet,
+  .entry.is-current .entry-sheet {
+    clip-path: none;
+    opacity: 1;
+  }
+}
+
+/* Toque: sem hover, a prancha já nasce aberta */
+@media (hover: none) {
+  .entry .entry-sheet {
+    clip-path: none;
+    opacity: 1;
+  }
+}

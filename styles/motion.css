@@ -1,0 +1,232 @@
+/* Famílias de movimento: Wind (horizontal), Draft (revelação técnica), Petal (atmosfera rara),
+   Flight (profundidade do Hero), Machine (resposta a input). Sem bounce, sem elástico, sem scroll-jacking. */
+
+@keyframes wind-enter {
+  from {
+    opacity: 0;
+    transform: translateX(calc(var(--amp-wind) * -1));
+  }
+}
+@keyframes wind-exit {
+  to {
+    transform: translateX(calc(var(--amp-wind) * -1));
+    opacity: 0;
+  }
+}
+@keyframes flight-recede {
+  to {
+    transform: scale(0.94);
+  }
+}
+@keyframes petal-pass {
+  0% {
+    opacity: 0;
+    transform: translate(-30px, 0) rotate(0deg);
+  }
+  15% {
+    opacity: 0.9;
+  }
+  50% {
+    transform: translate(calc(var(--tx) * 0.55), calc(var(--ty) * 0.2 - 14px)) rotate(calc(var(--rot) * 0.5));
+  }
+  80% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--tx), var(--ty)) rotate(var(--rot));
+  }
+}
+
+/* Revelações só existem com movimento permitido e JS ativo (html[data-motion="on"]);
+   sem isso o conteúdo já nasce visível */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* WIND · um título de capítulo chega ao entrar na tela, medium, 40ms entre itens */
+  html[data-motion="on"] [data-reveal="wind"] > * {
+    transition:
+      opacity var(--duration-medium) var(--ease-enter),
+      transform var(--duration-medium) var(--ease-enter);
+  }
+  html[data-motion="on"] [data-reveal="wind"] > :nth-child(2) {
+    transition-delay: var(--duration-stagger);
+  }
+  html[data-motion="on"] [data-reveal="wind"] > :nth-child(3) {
+    transition-delay: calc(var(--duration-stagger) * 2);
+  }
+  html[data-motion="on"] [data-reveal="wind"]:not([data-in]) > * {
+    opacity: 0;
+    transform: translateX(calc(var(--amp-wind) * -1));
+  }
+
+  /* DRAFT · réguas desenhadas ao entrar na tela, medium */
+  html[data-motion="on"] [data-reveal="rule"] {
+    transition: transform var(--duration-medium) var(--ease-standard);
+  }
+  html[data-motion="on"] [data-reveal="rule"]:not([data-in]) {
+    transform: scaleX(0);
+  }
+  html[data-motion="on"] .steps > :nth-child(2) [data-reveal="rule"] {
+    transition-delay: var(--duration-stagger);
+  }
+  html[data-motion="on"] .steps > :nth-child(3) [data-reveal="rule"] {
+    transition-delay: calc(var(--duration-stagger) * 2);
+  }
+  html[data-motion="on"] .steps > :nth-child(4) [data-reveal="rule"] {
+    transition-delay: calc(var(--duration-stagger) * 3);
+  }
+  html[data-motion="on"] .steps > :nth-child(5) [data-reveal="rule"] {
+    transition-delay: calc(var(--duration-stagger) * 4);
+  }
+  html[data-motion="on"] .sec-row[data-reveal]::before {
+    transition: transform var(--duration-medium) var(--ease-standard);
+  }
+  html[data-motion="on"] .sec-row[data-reveal]:not([data-in])::before {
+    transform: scaleX(0);
+  }
+
+  /* PETAL · cinco pétalas, uma passagem, uma vez por sessão, na passagem do Hero para o papel */
+  html[data-motion="on"] .petals[data-in] .petal {
+    animation: petal-pass var(--duration-cinematic) var(--ease-cinematic) both;
+  }
+}
+
+/* ---------- Transições entre páginas (View Transitions API) ---------- */
+
+::view-transition {
+  pointer-events: none;
+}
+::view-transition-group(*) {
+  animation-duration: var(--duration-medium);
+  animation-timing-function: var(--ease-standard);
+}
+/* A barra de navegação é a âncora espacial: não se move */
+::view-transition-group(site-nav) {
+  animation: none;
+  z-index: 100;
+}
+::view-transition-old(site-nav) {
+  display: none;
+}
+::view-transition-new(site-nav) {
+  animation: none;
+}
+
+/* DRAFT + FLIGHT · abrir e voltar de um projeto, cinematic. A prancha do detalhe desenrola sobre a faixa
+   da entrada e depois abre na altura toda. Índice, título e prancha mantêm identidade. */
+html[data-vt="open"]::view-transition-group(vt-sheet),
+html[data-vt="open"]::view-transition-group(vt-title),
+html[data-vt="open"]::view-transition-group(vt-index),
+html[data-vt="return"]::view-transition-group(vt-sheet),
+html[data-vt="return"]::view-transition-group(vt-title),
+html[data-vt="return"]::view-transition-group(vt-index) {
+  animation-duration: var(--duration-cinematic);
+  animation-timing-function: var(--ease-cinematic);
+}
+html[data-vt="open"]::view-transition-old(root),
+html[data-vt="open"]::view-transition-new(root),
+html[data-vt="return"]::view-transition-old(root),
+html[data-vt="return"]::view-transition-new(root) {
+  mix-blend-mode: normal;
+}
+html[data-vt="open"]::view-transition-old(root),
+html[data-vt="return"]::view-transition-new(root) {
+  animation: none;
+}
+html[data-vt="open"]::view-transition-new(root) {
+  animation: vt-unroll var(--duration-cinematic) var(--ease-cinematic) both;
+}
+html[data-vt="return"]::view-transition-old(root) {
+  z-index: 1;
+  animation: vt-rollback var(--duration-cinematic) var(--ease-cinematic) both;
+}
+@keyframes vt-unroll {
+  0% {
+    clip-path: inset(var(--vt-top) 100% var(--vt-bottom) 0);
+  }
+  45% {
+    clip-path: inset(var(--vt-top) 0 var(--vt-bottom) 0);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes vt-rollback {
+  0% {
+    clip-path: inset(0 0 0 0);
+  }
+  55% {
+    clip-path: inset(var(--vt-top) 0 var(--vt-bottom) 0);
+  }
+  100% {
+    clip-path: inset(var(--vt-top) 100% var(--vt-bottom) 0);
+  }
+}
+
+/* WIND · avançar (forward) e voltar pela navegação (back): sai em short, entra em medium,
+   nunca atravessando o chão de papel */
+html[data-vt="forward"]::view-transition,
+html[data-vt="back"]::view-transition {
+  background-color: #1c1f25;
+}
+html[data-vt="forward"]::view-transition-old(root),
+html[data-vt="back"]::view-transition-old(root) {
+  animation: vt-wind-out var(--duration-short) var(--ease-exit) both;
+}
+html[data-vt="forward"]::view-transition-new(root) {
+  animation: vt-wind-enter var(--duration-medium) var(--ease-enter) var(--duration-short) both;
+}
+html[data-vt="back"]::view-transition-new(root) {
+  animation: vt-wind-return var(--duration-medium) var(--ease-enter) var(--duration-short) both;
+}
+@keyframes vt-wind-out {
+  to {
+    opacity: 0;
+    transform: translateX(calc(var(--amp-wind) * -1));
+  }
+}
+@keyframes vt-wind-enter {
+  from {
+    opacity: 0;
+    transform: translateX(calc(var(--amp-wind) * -1));
+  }
+}
+@keyframes vt-wind-return {
+  from {
+    opacity: 0;
+    transform: translateX(var(--amp-wind));
+  }
+}
+
+/* Movimento reduzido altera a coreografia, não o significado: troca as vistas por um cross-fade curto */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: var(--duration-short);
+  }
+}
+
+/* Identidade compartilhada: a entrada aberta (data-vt-source) e o detalhe levam os mesmos nomes,
+   só durante abrir e voltar */
+html[data-vt="open"] [data-vt-source] [data-vt-part="index"],
+html[data-vt="return"] [data-vt-source] [data-vt-part="index"],
+html[data-vt="open"] .detail [data-vt-part="index"],
+html[data-vt="return"] .detail [data-vt-part="index"] {
+  view-transition-name: vt-index;
+}
+html[data-vt="open"] [data-vt-source] [data-vt-part="title"],
+html[data-vt="return"] [data-vt-source] [data-vt-part="title"],
+html[data-vt="open"] .detail [data-vt-part="title"],
+html[data-vt="return"] .detail [data-vt-part="title"] {
+  view-transition-name: vt-title;
+}
+html[data-vt="open"] [data-vt-source] [data-vt-part="sheet"],
+html[data-vt="return"] [data-vt-source] [data-vt-part="sheet"],
+html[data-vt="open"] .detail [data-vt-part="sheet"],
+html[data-vt="return"] .detail [data-vt-part="sheet"] {
+  view-transition-name: vt-sheet;
+}

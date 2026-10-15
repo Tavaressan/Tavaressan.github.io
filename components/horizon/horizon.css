@@ -1,0 +1,62 @@
+.horizon {
+  position: relative;
+  z-index: 1;
+  padding-top: 128px;
+  padding-bottom: 48px;
+}
+.horizon__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 96px;
+}
+.horizon__top {
+  row-gap: 40px;
+}
+.horizon__heading {
+  grid-column: 1 / span 8;
+}
+.horizon__links {
+  grid-column: 3 / span 6;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 40px;
+  row-gap: 8px;
+}
+.horizon__missing:hover {
+  text-decoration: none;
+}
+.horizon__base {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.horizon__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 24px;
+  row-gap: 8px;
+}
+.horizon__meta > p {
+  margin: 0;
+}
+.clock {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--ink);
+}
+
+/* /contact: uma faixa de céu acima, antes do fim */
+.contact-page {
+  position: relative;
+  z-index: 1;
+  padding-top: 96px;
+}
+
+@media (max-width: 1023px) {
+  .horizon__top {
+    row-gap: 24px;
+  }
+}

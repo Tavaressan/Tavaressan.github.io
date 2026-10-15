@@ -1,0 +1,1213 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400&display=swap">
+<title>Kaze Tachinu — Design Direction</title>
+
+<style>
+  /* ═══════════════════════════════════════════
+     TOKENS — Light theme: "Afternoon drafting room"
+     ═══════════════════════════════════════════ */
+  :root {
+    --bg: #EFE9DD;
+    --bg-surface: #F7F3EB;
+    --bg-elevated: #FDFBF7;
+    --ink: #2A2420;
+    --ink-2: #6B6055;
+    --ink-3: #9A9183;
+    --terracotta: #B86B4A;
+    --terra-deep: #9C5A3D;
+    --terra-wash: rgba(184,107,74,0.10);
+    --horizon: #6F8D9E;
+    --hz-wash: rgba(111,141,158,0.10);
+    --rule: #D9D1C5;
+    --rule-sub: #E5DED3;
+    --shadow-s: 0 1px 3px rgba(42,36,32,0.06);
+    --shadow-m: 0 4px 12px rgba(42,36,32,0.08);
+    --shadow-l: 0 8px 24px rgba(42,36,32,0.10);
+    --theme-label-light: "bold";
+    --theme-label-dark: "normal";
+
+    --display: 'EB Garamond', Georgia, 'Times New Roman', serif;
+    --body: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+    --mono: 'JetBrains Mono', Consolas, Monaco, monospace;
+
+    --s0: 1rem; --s1: 1.25rem; --s2: 1.563rem;
+    --s3: 1.953rem; --s4: 2.441rem; --s5: 3.052rem;
+    --radius: 3px;
+    --measure: 38rem;
+  }
+
+  /* Dark — system preference */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1C1F25;
+      --bg-surface: #242830;
+      --bg-elevated: #2C3139;
+      --ink: #E6E0D6;
+      --ink-2: #9A9088;
+      --ink-3: #6B6258;
+      --terracotta: #D0845E;
+      --terra-deep: #C07750;
+      --terra-wash: rgba(208,132,94,0.12);
+      --horizon: #8AAABB;
+      --hz-wash: rgba(138,170,187,0.12);
+      --rule: #333840;
+      --rule-sub: #2A2F36;
+      --shadow-s: 0 1px 3px rgba(0,0,0,0.15);
+      --shadow-m: 0 4px 12px rgba(0,0,0,0.25);
+      --shadow-l: 0 8px 24px rgba(0,0,0,0.30);
+      --theme-label-light: "normal";
+      --theme-label-dark: "bold";
+    }
+  }
+
+  /* Dark — explicit toggle */
+  :root[data-theme="dark"] {
+    --bg: #1C1F25;
+    --bg-surface: #242830;
+    --bg-elevated: #2C3139;
+    --ink: #E6E0D6;
+    --ink-2: #9A9088;
+    --ink-3: #6B6258;
+    --terracotta: #D0845E;
+    --terra-deep: #C07750;
+    --terra-wash: rgba(208,132,94,0.12);
+    --horizon: #8AAABB;
+    --hz-wash: rgba(138,170,187,0.12);
+    --rule: #333840;
+    --rule-sub: #2A2F36;
+    --shadow-s: 0 1px 3px rgba(0,0,0,0.15);
+    --shadow-m: 0 4px 12px rgba(0,0,0,0.25);
+    --shadow-l: 0 8px 24px rgba(0,0,0,0.30);
+    --theme-label-light: "normal";
+    --theme-label-dark: "bold";
+  }
+
+  /* ═══ BASE ═══ */
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--body);
+    line-height: 1.65;
+    padding-inline: 1.5rem;
+    padding-block: 2.5rem 5rem;
+    max-width: 56rem;
+    margin-inline: auto;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--display);
+    color: var(--ink);
+    line-height: 1.2;
+    text-wrap: balance;
+    margin: 0;
+  }
+  h2 { font-size: var(--s3); font-weight: 500; margin-block: 3.5rem 1rem; }
+  h3 { font-size: var(--s2); font-weight: 500; margin-block: 2.5rem 0.75rem; }
+  h4 { font-size: var(--s1); font-weight: 600; margin-block: 1.5rem 0.5rem; }
+  p { margin-block: 0 0.75rem; max-width: var(--measure); }
+  a { color: var(--terra-deep); text-decoration-color: var(--rule); text-underline-offset: 3px; }
+  a:hover { color: var(--terracotta); text-decoration-color: var(--terracotta); }
+  code {
+    font-family: var(--mono);
+    font-size: 0.875em;
+    background: var(--bg-surface);
+    padding: 0.15em 0.4em;
+    border-radius: var(--radius);
+    border: 1px solid var(--rule-sub);
+  }
+  hr {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin-block: 3rem;
+  }
+  small { font-size: 0.875rem; color: var(--ink-2); }
+
+  /* ═══ HEADER ═══ */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-block-end: 3rem;
+  }
+  .header-title {
+    font-family: var(--display);
+    font-size: var(--s4);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+  }
+  .header-sub {
+    font-family: var(--body);
+    font-size: var(--s0);
+    font-weight: 300;
+    color: var(--ink-2);
+    margin-block-start: 0.35rem;
+    letter-spacing: 0.04em;
+  }
+  .theme-toggle {
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+    font-size: 0.8125rem;
+    color: var(--ink-3);
+    flex-shrink: 0;
+    margin-block-start: 0.5rem;
+    cursor: pointer;
+    user-select: none;
+  }
+  .theme-toggle button {
+    background: none;
+    border: 1px solid var(--rule);
+    color: var(--ink-2);
+    font-family: var(--body);
+    font-size: 0.8125rem;
+    padding: 0.25rem 0.625rem;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .theme-toggle button:first-of-type { border-radius: var(--radius) 0 0 var(--radius); }
+  .theme-toggle button:last-of-type { border-radius: 0 var(--radius) var(--radius) 0; border-left: none; }
+  .theme-toggle button.active {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+  }
+
+  /* ═══ PRINCIPLE ═══ */
+  .principle {
+    border-left: 3px solid var(--terracotta);
+    padding-left: 1.25rem;
+    margin-block: 2rem 2.5rem;
+  }
+  .principle blockquote {
+    font-family: var(--display);
+    font-size: var(--s2);
+    font-style: italic;
+    color: var(--ink);
+    margin: 0 0 0.5rem 0;
+    line-height: 1.4;
+  }
+  .principle p {
+    color: var(--ink-2);
+    font-size: 0.9375rem;
+    margin: 0;
+  }
+
+  /* ═══ SWATCHES ═══ */
+  .palette-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 0.75rem;
+    margin-block: 1rem 1.5rem;
+  }
+  .swatch {
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--rule-sub);
+  }
+  .swatch-color {
+    height: 56px;
+    border-bottom: 1px solid var(--rule-sub);
+  }
+  .swatch-info {
+    padding: 0.5rem 0.625rem;
+    background: var(--bg-surface);
+  }
+  .swatch-name {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--ink);
+    display: block;
+  }
+  .swatch-hex {
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    color: var(--ink-3);
+    display: block;
+    margin-block-start: 0.125rem;
+  }
+  .swatch-role {
+    font-size: 0.75rem;
+    color: var(--ink-2);
+    display: block;
+    margin-block-start: 0.25rem;
+  }
+
+  /* ═══ SIDE-BY-SIDE THEMES ═══ */
+  .theme-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-block: 1rem;
+  }
+  @media (max-width: 600px) {
+    .theme-compare { grid-template-columns: 1fr; }
+  }
+  .theme-card {
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    border: 1px solid var(--rule-sub);
+  }
+  .theme-card-light {
+    background: #EFE9DD;
+    color: #2A2420;
+    border-color: #D9D1C5;
+  }
+  .theme-card-dark {
+    background: #1C1F25;
+    color: #E6E0D6;
+    border-color: #333840;
+  }
+  .theme-card-label {
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-block-end: 0.75rem;
+  }
+  .theme-card h4 {
+    font-family: var(--display);
+    font-size: var(--s1);
+    font-weight: 500;
+    margin-block: 0 0.25rem;
+  }
+  .theme-card-dark h4 { color: #E6E0D6; }
+  .theme-card p {
+    font-size: 0.875rem;
+    line-height: 1.55;
+    margin-block: 0 0.5rem;
+  }
+  .theme-card-dark p { color: #9A9088; }
+  .theme-card-dark .tc-accent { color: #D0845E; }
+  .theme-card-light .tc-accent { color: #B86B4A; }
+  .theme-card-dark .tc-hz { color: #8AAABB; }
+  .theme-card-light .tc-hz { color: #6F8D9E; }
+
+  /* ═══ TYPE SPECIMEN ═══ */
+  .specimen {
+    margin-block: 1.25rem;
+    padding: 1.5rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--rule-sub);
+    border-radius: var(--radius);
+  }
+  .specimen-row {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding-block: 0.625rem;
+    border-bottom: 1px solid var(--rule-sub);
+  }
+  .specimen-row:last-child { border-bottom: none; }
+  .specimen-label {
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    color: var(--ink-3);
+    width: 4.5rem;
+    flex-shrink: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .specimen-sample { flex: 1; min-width: 0; }
+  .specimen-meta {
+    font-family: var(--mono);
+    font-size: 0.625rem;
+    color: var(--ink-3);
+    flex-shrink: 0;
+    text-align: right;
+  }
+  @media (max-width: 500px) {
+    .specimen-row { flex-direction: column; gap: 0.25rem; }
+    .specimen-meta { text-align: left; }
+    .specimen-label { width: auto; }
+  }
+
+  /* ═══ COMPONENT PREVIEW ═══ */
+  .preview {
+    margin-block: 1.25rem;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .preview-label {
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    color: var(--ink-3);
+    background: var(--bg-surface);
+    padding: 0.375rem 0.75rem;
+    border-bottom: 1px solid var(--rule-sub);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .preview-body {
+    padding: 0;
+    background: var(--bg);
+    position: relative;
+  }
+
+  /* Nav preview */
+  .nav-preview {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.875rem 1.25rem;
+    border-bottom: 1px solid var(--rule-sub);
+  }
+  .nav-logo {
+    font-family: var(--display);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .nav-links a {
+    font-family: var(--body);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--ink-2);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    position: relative;
+    padding-block-end: 2px;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1.5px;
+    background: var(--terracotta);
+    transition: width 0.25s ease;
+  }
+  .nav-links a:hover { color: var(--ink); text-decoration: none; }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-links a.nav-active { color: var(--ink); }
+  .nav-links a.nav-active::after { width: 100%; }
+
+  /* Hero preview */
+  .hero-preview {
+    padding: 3rem 1.5rem 2.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+  .hero-text { flex: 1; }
+  .hero-name {
+    font-family: var(--display);
+    font-size: var(--s5);
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+  .hero-role {
+    font-family: var(--body);
+    font-size: var(--s0);
+    font-weight: 400;
+    color: var(--ink-2);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-block: 0.5rem 1rem;
+  }
+  .hero-desc {
+    font-size: 0.9375rem;
+    color: var(--ink-2);
+    max-width: 28rem;
+    line-height: 1.65;
+    margin: 0;
+  }
+  .hero-chibi-placeholder {
+    width: 160px;
+    height: 200px;
+    border: 2px dashed var(--rule);
+    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    flex-shrink: 0;
+    color: var(--ink-3);
+    font-size: 0.75rem;
+    font-family: var(--mono);
+    text-align: center;
+    padding: 0.75rem;
+  }
+  .hero-chibi-placeholder svg {
+    width: 32px;
+    height: 32px;
+    opacity: 0.4;
+  }
+  @media (max-width: 500px) {
+    .hero-preview { flex-direction: column-reverse; align-items: center; text-align: center; padding: 2rem 1rem; }
+    .hero-name { font-size: var(--s4); }
+    .hero-desc { margin-inline: auto; }
+  }
+
+  /* Card preview */
+  .cards-preview {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.875rem;
+    padding: 1.25rem;
+  }
+  @media (max-width: 500px) {
+    .cards-preview { grid-template-columns: 1fr; }
+  }
+  .card {
+    background: var(--bg-surface);
+    border: 1px solid var(--rule-sub);
+    border-radius: var(--radius);
+    padding: 1.125rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+  }
+  .card:hover {
+    border-color: var(--terracotta);
+    box-shadow: var(--shadow-m);
+  }
+  .card-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    color: var(--horizon);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-block-end: 0.375rem;
+  }
+  .card-title {
+    font-family: var(--display);
+    font-size: var(--s1);
+    font-weight: 500;
+    color: var(--ink);
+    margin: 0 0 0.375rem 0;
+    line-height: 1.25;
+  }
+  .card-desc {
+    font-size: 0.8125rem;
+    color: var(--ink-2);
+    line-height: 1.55;
+    margin: 0 0 0.75rem 0;
+  }
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+  }
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    color: var(--ink-2);
+    background: var(--bg);
+    border: 1px solid var(--rule-sub);
+    padding: 0.125rem 0.5rem;
+    border-radius: 2px;
+  }
+
+  /* Footer preview */
+  .footer-preview {
+    border-top: 1px solid var(--rule-sub);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8125rem;
+    color: var(--ink-3);
+  }
+  .footer-links {
+    display: flex;
+    gap: 1.25rem;
+  }
+  .footer-links a {
+    color: var(--ink-2);
+    text-decoration: none;
+    font-size: 0.8125rem;
+  }
+  .footer-links a:hover { color: var(--terracotta); }
+
+  /* ═══ ASSET MAP ═══ */
+  .asset-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.875rem;
+    margin-block: 1rem;
+  }
+  @media (max-width: 550px) {
+    .asset-grid { grid-template-columns: 1fr; }
+  }
+  .asset-item {
+    background: var(--bg-surface);
+    border: 1px solid var(--rule-sub);
+    border-radius: var(--radius);
+    padding: 1rem;
+  }
+  .asset-filename {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--terracotta);
+    margin-block-end: 0.25rem;
+  }
+  .asset-size {
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    color: var(--ink-3);
+    margin-block-end: 0.5rem;
+  }
+  .asset-placement {
+    font-size: 0.8125rem;
+    color: var(--ink-2);
+    margin: 0;
+    line-height: 1.5;
+  }
+  .asset-placement strong { color: var(--ink); font-weight: 500; }
+
+  /* ═══ TENSION ═══ */
+  .tension {
+    background: var(--bg-surface);
+    border: 1px solid var(--rule-sub);
+    border-left: 3px solid var(--horizon);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 1rem 1.25rem;
+    margin-block: 0.75rem;
+  }
+  .tension-title {
+    font-family: var(--display);
+    font-size: var(--s1);
+    font-weight: 500;
+    color: var(--ink);
+    margin-block-end: 0.375rem;
+  }
+  .tension p {
+    font-size: 0.875rem;
+    color: var(--ink-2);
+    margin: 0;
+    line-height: 1.6;
+  }
+  .tension-resolution {
+    margin-block-start: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  /* ═══ CODE BLOCK ═══ */
+  .code-block {
+    background: var(--bg-surface);
+    border: 1px solid var(--rule-sub);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    overflow-x: auto;
+    margin-block: 1rem;
+    font-family: var(--mono);
+    font-size: 0.8125rem;
+    line-height: 1.7;
+    color: var(--ink-2);
+  }
+  .code-block .token-prop { color: var(--horizon); }
+  .code-block .token-val { color: var(--terracotta); }
+  .code-block .token-comment { color: var(--ink-3); font-style: italic; }
+
+  /* ═══ CONTRAST TABLE ═══ */
+  .contrast-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-block: 1rem;
+    font-size: 0.8125rem;
+  }
+  .contrast-table th {
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-3);
+    text-align: left;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .contrast-table td {
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--rule-sub);
+    color: var(--ink-2);
+    font-variant-numeric: tabular-nums;
+  }
+  .contrast-table td:first-child {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--ink);
+  }
+  .pass { color: #5a8a5e; font-weight: 500; }
+  .fail { color: #b85a4a; font-weight: 500; }
+
+  /* ═══ NOTE ═══ */
+  .note {
+    background: var(--terra-wash);
+    border: 1px solid color-mix(in srgb, var(--terracotta) 20%, transparent);
+    border-radius: var(--radius);
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    color: var(--ink-2);
+    margin-block: 1rem;
+  }
+  .note strong { color: var(--ink); }
+
+  /* ═══ SECTION EYEBROW ═══ */
+  .section-num {
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    color: var(--ink-3);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: block;
+    margin-block-end: 0.25rem;
+  }
+</style>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="header">
+  <div>
+    <div class="header-title">Kaze Tachinu</div>
+    <div class="header-sub">Design Direction — Portfolio de Vitor Tavares</div>
+  </div>
+  <div class="theme-toggle">
+    <button id="btn-light" class="active" onclick="setTheme('light')">Light</button>
+    <button id="btn-dark" onclick="setTheme('dark')">Dark</button>
+  </div>
+</div>
+
+<!-- PRINCÍPIO -->
+<div class="principle">
+  <blockquote>A well-organized drafting table: precise, warm, purposeful.</blockquote>
+  <p>Mesa de trabalho de engenheiro — cada instrumento no lugar, luz quente de tarde, papel que convida a riscar. Nada decorativo; tudo que está ali trabalha.</p>
+</div>
+
+<p>O design traduz a atmosfera de <em>Kaze Tachinu</em> para a web sem fantasiar o filme — sem bordas de aquarela, sem texturas de papel forçadas. O que entra são as <strong>cores</strong> (terracota, cinza-azulado, tons de papel envelhecido), o <strong>ritmo</strong> (respiro generoso, proporções equilibradas) e a <strong>atitude</strong> (precisão de engenheiro com sensibilidade de artesão). O chibi e os GIFs são os únicos elementos que citam o filme diretamente — o resto da estética existe por si.</p>
+
+<hr>
+
+<!-- ═══ 1. PALETA ═══ -->
+<span class="section-num">01 — Cor</span>
+<h2>Paleta</h2>
+
+<h3>Light — "Sala de desenho à tarde"</h3>
+<p>A cena recorrente de Jiro na prancheta: luz filtrada por janelas altas, papel creme, instrumentos de metal e madeira. O fundo principal é mais quente e saturado que o creme genérico — é <em>washi</em>, não Notion.</p>
+
+<div class="palette-grid">
+  <div class="swatch">
+    <div class="swatch-color" style="background:#EFE9DD"></div>
+    <div class="swatch-info">
+      <span class="swatch-name">bg</span>
+      <span class="swatch-hex">#EFE9DD</span>
+      <span class="swatch-role">Fundo principal — papel washi</span>
+    </div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color" style="background:#F7F3EB"></div>
+    <div class="swatch-info">
+      <span class="swatch-name">bg-surface</span>
+      <span class="swatch-hex">#F7F3EB</span>
+      <span class="swatch-role">Cards, painéis elevados</span>
+    </div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color" style="background:#2A2420"></div>
+    <div class="swatch-info">
+      <span class="swatch-name">ink</span>
+      <span class="swatch-hex">#2A2420</span>
+      <span class="swatch-role">Texto primário — tinta sumi</span>
+    </div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color" style="background:#6B6055"></div>
+    <div class="swatch-info">
+      <span class="swatch-name">ink-2</span>
+      <span class="swatch-hex">#6B6055</span>
+      <span class="swatch-role">Texto secundário — grafite</span>
+    </div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color" style="background:#B86B4A"></div>
+    <div class="swatch-info">
+      <span class="swatch-name">terracotta</span>
+      <span class="swatch-hex">#B86B4A</span>
+      <span class="swatch-role">Acento primário — telhados, terra</span>
+    </div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color" style="background:#6F8D9E"></div>
+    <div class="swatch-info">
+      <span class="swatch-name">horizon</span>
+      <span class="swatch-hex">#6F8D9E</span>
+      <span class="swatch-role">Acento secundário — céu Ghibli</span>
+    </div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color" style="background:#9C5A3D"></div>
+    <div class="swatch-info">
+      <span class="swatch-name">terra-deep</span>
+      <span class="swatch-hex">#9C5A3D</span>
+      <span class="swatch-role">Links em texto corrido (AA)</span>
+    </div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color" style="background:#D9D1C5"></div>
+    <div class="swatch-info">
+      <span class="swatch-name">rule</span>
+      <span class="swatch-hex">#D9D1C5</span>
+      <span class="swatch-role">Bordas, divisores</span>
+    </div>
+  </div>
+</div>
+
+<h3>Dark — "Oficina à luz da lamparina"</h3>
+<p>As cenas noturnas do filme: Jiro no hotel, rascunhando sob luz amarelada. O fundo é azul-carvão (céu de noite), não marrom-escuro — e o texto ganha a tonalidade creme da luz de lamparina.</p>
+
+<div class="palette-grid">
+  <div class="swatch">
+    <div class="swatch-color" style="background:#1C1F25"></div>
+    <div class="swatch-info">
+      <span class="swatch-name">bg</span>
+      <span class="swatch-hex">#1C1F25</span>
+      <span class="swatch-role">Fundo principal — céu noturno</span>
+    </div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color" style="background:#242830"></div>
+    <div class="swatch-info">
+      <span class="swatch-name">bg-surface</span>
+      <span class="swatch-hex">#242830</span>
+      <span class="swatch-role">Cards, painéis elevados</span>
+    </div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color" style="background:#E6E0D6"></div>
+    <div class="swatch-info">
+      <span class="swatch-name">ink</span>
+      <span class="swatch-hex">#E6E0D6</span>
+      <span class="swatch-role">Texto primário — creme lamparina</span>
+    </div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color" style="background:#9A9088"></div>
+    <div class="swatch-info">
+      <span class="swatch-name">ink-2</span>
+      <span class="swatch-hex">#9A9088</span>
+      <span class="swatch-role">Texto secundário</span>
+    </div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color" style="background:#D0845E"></div>
+    <div class="swatch-info">
+      <span class="swatch-name">terracotta</span>
+      <span class="swatch-hex">#D0845E</span>
+      <span class="swatch-role">Acento — terracota aquecido</span>
+    </div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color" style="background:#8AAABB"></div>
+    <div class="swatch-info">
+      <span class="swatch-name">horizon</span>
+      <span class="swatch-hex">#8AAABB</span>
+      <span class="swatch-role">Acento secundário — céu noturno</span>
+    </div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color" style="background:#C07750"></div>
+    <div class="swatch-info">
+      <span class="swatch-name">terra-deep</span>
+      <span class="swatch-hex">#C07750</span>
+      <span class="swatch-role">Links em texto corrido (AA)</span>
+    </div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color" style="background:#333840"></div>
+    <div class="swatch-info">
+      <span class="swatch-name">rule</span>
+      <span class="swatch-hex">#333840</span>
+      <span class="swatch-role">Bordas, divisores</span>
+    </div>
+  </div>
+</div>
+
+<h3>Lado a lado</h3>
+<div class="theme-compare">
+  <div class="theme-card theme-card-light">
+    <div class="theme-card-label">Light</div>
+    <h4>Enterprise Agent Platform</h4>
+    <p>Multi-agent orchestration for <span class="tc-accent">elevator fleet management</span>, built on <span class="tc-hz">Rust</span> and TypeScript.</p>
+  </div>
+  <div class="theme-card theme-card-dark">
+    <div class="theme-card-label">Dark</div>
+    <h4>Enterprise Agent Platform</h4>
+    <p>Multi-agent orchestration for <span class="tc-accent">elevator fleet management</span>, built on <span class="tc-hz">Rust</span> and TypeScript.</p>
+  </div>
+</div>
+
+<h3>Contraste — WCAG AA</h3>
+<p>O terracotta principal (<code>#B86B4A</code>) não atinge 4.5:1 sobre o fundo light para texto corrido. Para links e texto pequeno sobre fundo claro, usar <code>terra-deep</code>. O terracotta puro funciona para headings (≥18pt) e elementos decorativos.</p>
+
+<div style="overflow-x:auto">
+<table class="contrast-table">
+  <thead>
+    <tr><th>Par</th><th>Ratio</th><th>Body text</th><th>Large text</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>ink / bg</td><td>~12.4:1</td><td class="pass">AA ✓</td><td class="pass">AAA ✓</td></tr>
+    <tr><td>ink-2 / bg</td><td>~4.6:1</td><td class="pass">AA ✓</td><td class="pass">AA ✓</td></tr>
+    <tr><td>terracotta / bg</td><td>~3.9:1</td><td class="fail">— ✗</td><td class="pass">AA ✓</td></tr>
+    <tr><td>terra-deep / bg</td><td>~5.4:1</td><td class="pass">AA ✓</td><td class="pass">AA ✓</td></tr>
+    <tr><td>horizon / bg</td><td>~3.5:1</td><td class="fail">— ✗</td><td class="pass">AA ✓</td></tr>
+    <tr><td colspan="4" style="font-size:0.75rem;color:var(--ink-3);border:none;padding-top:0.75rem">Dark theme (todos os pares primários passam AA para body text)</td></tr>
+    <tr><td>ink / bg (dark)</td><td>~12.1:1</td><td class="pass">AA ✓</td><td class="pass">AAA ✓</td></tr>
+    <tr><td>ink-2 / bg (dark)</td><td>~5.0:1</td><td class="pass">AA ✓</td><td class="pass">AA ✓</td></tr>
+    <tr><td>terracotta / bg (dark)</td><td>~5.2:1</td><td class="pass">AA ✓</td><td class="pass">AA ✓</td></tr>
+    <tr><td>horizon / bg (dark)</td><td>~5.7:1</td><td class="pass">AA ✓</td><td class="pass">AA ✓</td></tr>
+  </tbody>
+</table>
+</div>
+
+<hr>
+
+<!-- ═══ 2. TIPOGRAFIA ═══ -->
+<span class="section-num">02 — Tipo</span>
+<h2>Tipografia</h2>
+
+<p><strong>EB Garamond</strong> para display — a serifa europeia com traços afiados que evoca a tipografia entre-guerras (o mundo que Jiro habitava). Não é uma fonte fantasiada de "vintage"; é um revival preciso do Garamond barroco que funciona naturalmente em contexto editorial moderno. <strong>Source Sans 3</strong> para corpo — limpa, técnica, desenhada para leitura em tela, com um DNA de engenharia que complementa a serifa sem competir. <strong>JetBrains Mono</strong> para código.</p>
+
+<div class="specimen">
+  <div class="specimen-row">
+    <span class="specimen-label">H1</span>
+    <span class="specimen-sample" style="font-family:var(--display);font-size:var(--s5);font-weight:400;line-height:1.08;letter-spacing:-0.02em">Vitor Tavares</span>
+    <span class="specimen-meta">EB Garamond 400<br>3.052rem</span>
+  </div>
+  <div class="specimen-row">
+    <span class="specimen-label">H2</span>
+    <span class="specimen-sample" style="font-family:var(--display);font-size:var(--s3);font-weight:500;line-height:1.2">Featured Projects</span>
+    <span class="specimen-meta">EB Garamond 500<br>1.953rem</span>
+  </div>
+  <div class="specimen-row">
+    <span class="specimen-label">H3</span>
+    <span class="specimen-sample" style="font-family:var(--display);font-size:var(--s2);font-weight:500;line-height:1.25">Enterprise Agent Platform</span>
+    <span class="specimen-meta">EB Garamond 500<br>1.563rem</span>
+  </div>
+  <div class="specimen-row">
+    <span class="specimen-label">H4</span>
+    <span class="specimen-sample" style="font-family:var(--display);font-size:var(--s1);font-weight:600;line-height:1.3">Technical Stack</span>
+    <span class="specimen-meta">EB Garamond 600<br>1.25rem</span>
+  </div>
+  <div class="specimen-row">
+    <span class="specimen-label">Body</span>
+    <span class="specimen-sample" style="font-family:var(--body);font-size:var(--s0)">Building IoT pipelines and cloud infrastructure for elevator fleet telemetry, connecting embedded controllers to real-time dashboards.</span>
+    <span class="specimen-meta">Source Sans 3 400<br>1rem / 1.65</span>
+  </div>
+  <div class="specimen-row">
+    <span class="specimen-label">Small</span>
+    <span class="specimen-sample" style="font-family:var(--body);font-size:0.875rem;color:var(--ink-2)">TypeScript · Rust · Java · ESP32 · AWS</span>
+    <span class="specimen-meta">Source Sans 3 400<br>0.875rem</span>
+  </div>
+  <div class="specimen-row">
+    <span class="specimen-label">Code</span>
+    <span class="specimen-sample" style="font-family:var(--mono);font-size:0.875rem;color:var(--ink-2)">const agent = new FleetAgent({ protocol: "mqtt" });</span>
+    <span class="specimen-meta">JetBrains Mono 400<br>0.875rem</span>
+  </div>
+  <div class="specimen-row">
+    <span class="specimen-label">Eyebrow</span>
+    <span class="specimen-sample" style="font-family:var(--mono);font-size:0.6875rem;color:var(--ink-3);letter-spacing:0.06em;text-transform:uppercase">Featured Project</span>
+    <span class="specimen-meta">JetBrains Mono 400<br>0.6875rem / uppercase</span>
+  </div>
+  <div class="specimen-row">
+    <span class="specimen-label">Italic</span>
+    <span class="specimen-sample" style="font-family:var(--display);font-size:var(--s1);font-style:italic;color:var(--ink-2)">Le vent se lève, il faut tenter de vivre.</span>
+    <span class="specimen-meta">EB Garamond Italic<br>1.25rem</span>
+  </div>
+</div>
+
+<h4>Escala tipográfica — Major Third (1.25)</h4>
+<p>Progressão: 0.6875 → 0.875 → 1 → 1.25 → 1.563 → 1.953 → 2.441 → 3.052 rem. A proporção 1.25 é contida o suficiente para não criar saltos dramáticos, mas dá hierarquia clara entre os níveis. O H1 fica grande sem ser agressivo.</p>
+
+<hr>
+
+<!-- ═══ 3. COMPONENTES ═══ -->
+<span class="section-num">03 — Componentes</span>
+<h2>Componentes</h2>
+
+<p>Cada componente demonstrado abaixo usa os tokens definidos acima. O princípio é consistente: linhas finas, espaço generoso, interações sutis. Nenhum componente usa radius arredondado além de 3px — a estética é precisa, não "friendly".</p>
+
+<h3>Navegação</h3>
+<p>Fixa no topo com backdrop blur. Nome em EB Garamond à esquerda (não um logo desenhado — o tipo <em>é</em> a marca). Links em Source Sans com uppercase leve e tracking. Hover: underline terracota desliza da esquerda. No mobile: hambúrguer → painel lateral.</p>
+
+<div class="preview">
+  <div class="preview-label">Navigation</div>
+  <div class="preview-body">
+    <nav class="nav-preview">
+      <span class="nav-logo">Vitor Tavares</span>
+      <ul class="nav-links">
+        <li><a href="#" class="nav-active">Work</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<h3>Hero</h3>
+<p>O nome em escala grande (EB Garamond 400, leve) com o papel/role abaixo em uppercase com tracking aberto. O chibi ocupa o lado direito, levemente deslocado — como um esboço preso no canto de uma prancheta, não centralizado em um pedestal. Uma linha de descrição curta, direta, em Source Sans.</p>
+
+<div class="preview">
+  <div class="preview-label">Hero Section</div>
+  <div class="preview-body">
+    <div class="hero-preview">
+      <div class="hero-text">
+        <h1 class="hero-name">Vitor Tavares</h1>
+        <div class="hero-role">Software Developer</div>
+        <p class="hero-desc">Building IoT systems and cloud infrastructure — from embedded controllers to real-time dashboards. Intern at Alfabra Elevadores, student at Fatec Itaquera.</p>
+      </div>
+      <div class="hero-chibi-placeholder">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M6 21v-1a6 6 0 0112 0v1"/></svg>
+        chibi<br>placeholder
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3>Cards de projeto</h3>
+<p>Fundo <code>bg-surface</code> com borda fina <code>rule-sub</code>. No hover: borda muda para terracota + sombra média cresce. Eyebrow em mono uppercase indica a categoria (Featured / Academic / Open Source). Título em EB Garamond 500. Tags de tecnologia em mono pequeno, com fundo sutil. O card não usa radius arredondado nem sombra em repouso — a elevação visual vem do hover, não de um "float" permanente.</p>
+
+<div class="preview">
+  <div class="preview-label">Project Cards</div>
+  <div class="preview-body">
+    <div class="cards-preview">
+      <div class="card">
+        <div class="card-eyebrow">Featured Project</div>
+        <h3 class="card-title">Enterprise Agent Platform</h3>
+        <p class="card-desc">Multi-agent orchestration for elevator fleet management. Real-time MQTT telemetry, fault detection, and automated dispatching.</p>
+        <div class="card-tags">
+          <span class="tag">Rust</span>
+          <span class="tag">TypeScript</span>
+          <span class="tag">MQTT</span>
+          <span class="tag">AWS</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-eyebrow">IoT</div>
+        <h3 class="card-title">Cafey</h3>
+        <p class="card-desc">ESP32 retrofit module that turns a legacy coffee maker into a connected IoT appliance with scheduling and monitoring.</p>
+        <div class="card-tags">
+          <span class="tag">ESP32</span>
+          <span class="tag">C/C++</span>
+          <span class="tag">React</span>
+          <span class="tag">MQTT</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3>Footer</h3>
+<p>Minimal. Linha fina <code>rule-sub</code> no topo, nome à esquerda, links à direita. Sem citações do filme, sem ornamentos — o footer é infraestrutura, não uma oportunidade decorativa.</p>
+
+<div class="preview">
+  <div class="preview-label">Footer</div>
+  <div class="preview-body">
+    <div class="footer-preview">
+      <span>© 2026 Vitor Tavares</span>
+      <div class="footer-links">
+        <a href="#">GitHub</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">Email</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- ═══ 4. ASSETS ═══ -->
+<span class="section-num">04 — Assets</span>
+<h2>GIFs e Chibi</h2>
+
+<h3>Os quatro GIFs</h3>
+<p>Cada GIF tem um papel narrativo e um lugar definido. Regra geral: são acentos atmosféricos, não conteúdo. Devem ser lazy-loaded, e os maiores merecem extração de frame estático para o primeiro paint.</p>
+
+<div class="asset-grid">
+  <div class="asset-item">
+    <div class="asset-filename">jiro_prairie_cloud_plane.gif</div>
+    <div class="asset-size">3.6 MB</div>
+    <p class="asset-placement"><strong>Hero — elemento de fundo.</strong> Paisagem aberta, céu, avião. Posicionado atrás ou ao lado do texto do hero, com CSS mask-image criando bordas suaves. Opacidade reduzida (~0.3), filtro sutil para casar com a paleta. Considerar frame estático no carregamento inicial.</p>
+  </div>
+  <div class="asset-item">
+    <div class="asset-filename">sketching_table_char.gif</div>
+    <div class="asset-size">2.1 MB</div>
+    <p class="asset-placement"><strong>About — acento lateral.</strong> Jiro desenhando na mesa de trabalho. Posicionar ao lado da seção "About" ou "My Approach" — a metáfora visual de "craft" que conecta engenharia de aviões a engenharia de software. Tamanho contido (~200px), lazy-loaded.</p>
+  </div>
+  <div class="asset-item">
+    <div class="asset-filename">wind_desk_papers_char.gif</div>
+    <div class="asset-size">1.8 MB</div>
+    <p class="asset-placement"><strong>Transição ou 404.</strong> Papéis voando no vento — o motivo central do filme. Funciona como acento entre seções ou como elemento da página 404 ("the wind carried this page away"). O menor dos GIFs, mais versátil.</p>
+  </div>
+  <div class="asset-item">
+    <div class="asset-filename">writing_desk_closeup_char.gif</div>
+    <div class="asset-size">6 MB</div>
+    <p class="asset-placement"><strong>Páginas de projeto ou omitir.</strong> 6 MB é muito pesado para a home. Duas opções: usar apenas em páginas individuais de projeto (lazy-loaded), ou extrair um frame estático e abandonar a animação. Se usado, fazer crop/mask para mostrar só mãos e mesa.</p>
+  </div>
+</div>
+
+<div class="note">
+  <strong>Performance:</strong> Os 4 GIFs somam ~15.7 MB. Na home, usar no máximo 2 (prairie + sketching = 5.7 MB). Os outros ficam para páginas internas ou são convertidos a frames estáticos. Cada GIF deve ter <code>loading="lazy"</code> e, idealmente, um <code>&lt;picture&gt;</code> com poster/frame estático para o primeiro paint.
+</div>
+
+<h3>Tratamento visual dos GIFs</h3>
+<p>Todos os GIFs recebem o mesmo tratamento para manter coerência:</p>
+<div class="code-block">
+<span class="token-comment">/* Tratamento padrão para GIFs do filme */</span>
+<span class="token-prop">.film-gif</span> {
+  <span class="token-prop">filter</span>: <span class="token-val">saturate(0.85) sepia(0.08)</span>;
+  <span class="token-prop">border-radius</span>: <span class="token-val">var(--radius)</span>;
+  <span class="token-prop">opacity</span>: <span class="token-val">0.9</span>;
+  <span class="token-prop">mix-blend-mode</span>: <span class="token-val">multiply</span>; <span class="token-comment">/* só no light theme */</span>
+}
+
+<span class="token-comment">/* No dark theme, multiply não funciona — usar normal */</span>
+<span class="token-prop">@media (prefers-color-scheme: dark)</span> {
+  <span class="token-prop">.film-gif</span> {
+    <span class="token-prop">mix-blend-mode</span>: <span class="token-val">normal</span>;
+    <span class="token-prop">opacity</span>: <span class="token-val">0.7</span>;
+    <span class="token-prop">filter</span>: <span class="token-val">saturate(0.75) brightness(0.85)</span>;
+  }
+}
+</div>
+
+<h3>Chibi — Vitor como Jiro Horikoshi</h3>
+<p>O chibi é o <strong>único</strong> elemento abertamente lúdico do portfólio. Essa unicidade é o que faz ele funcionar — num contexto de design sério e preciso, a ilustração chibi humaniza sem infantilizar. Se houvesse outros elementos "divertidos", o chibi perderia impacto.</p>
+
+<h4>Posicionamento</h4>
+<p>Posição primária: hero section, à direita do texto, deslocado como um esboço preso na prancheta. Tamanho ~200–280px. Sem moldura, sem card, sem sombra exagerada — ele descansa sobre o papel, não flutua num pedestal de vidro.</p>
+
+<p>Posições secundárias (opcionais): página 404 (Jiro chibi perdido), estado de loading (Jiro desenhando), ou um aceno pequeno no footer. Nunca mais de uma aparição por página.</p>
+
+<div class="note">
+  <strong>Pendência:</strong> O chibi não está no repositório ainda (<code>assets/images/</code> contém apenas os 4 GIFs). Se a ilustração já existe, adicioná-la. Se ainda será criada: manter o estilo visual alinhado com a paleta do portfólio — traços limpos, cores que conversem com o terracota e o creme. Evitar outline preto pesado que destoe do tom suave do design.
+</div>
+
+<hr>
+
+<!-- ═══ 5. TENSÕES ═══ -->
+<span class="section-num">05 — Tensões</span>
+<h2>Tensões e trade-offs</h2>
+
+<p>Nenhum design coeso elimina tensões — ele as resolve deliberadamente. Estas são as que mapeei entre as escolhas acima:</p>
+
+<div class="tension">
+  <div class="tension-title">Refinamento vs. credibilidade técnica</div>
+  <p>EB Garamond + paleta creme cria uma atmosfera editorial, quase literária. Para recrutadores de software, há o risco de parecer "bonito mas faz o quê?". A serifa pode sugerir design/editorial mais do que engenharia.</p>
+  <div class="tension-resolution">Resolução: o conteúdo carrega a voz técnica. Tags de tecnologia em mono, código inline, descrições de projeto com vocabulário preciso ("MQTT telemetry pipeline", não "innovative solution"). O shell visual diz "eu me importo com craft"; o texto diz "eu entrego sistemas".</div>
+</div>
+
+<div class="tension">
+  <div class="tension-title">Estética de época vs. web moderna</div>
+  <p>A inspiração nos anos 1920–30 pode descambar para fantasia: bordas de aquarela, texturas forçadas, ornamentos art déco. Esse caminho transforma o portfólio num tributo ao filme em vez de num portfólio de desenvolvedor.</p>
+  <div class="tension-resolution">Resolução: a referência ao filme entra por canais controlados — cores, proporções, e os GIFs/chibi que citam diretamente. O layout, a tipografia responsiva e a interação são contemporâneos. Ninguém precisa saber que o terracota veio de um telhado do Japão dos anos 30; ele só precisa funcionar.</div>
+</div>
+
+<div class="tension">
+  <div class="tension-title">Peso dos GIFs vs. performance</div>
+  <p>15.7 MB de GIFs vs. Lighthouse performance. Usar todos destrói o score; não usar nenhum perde a conexão visual com o filme.</p>
+  <div class="tension-resolution">Resolução: máximo 2 GIFs na home (lazy-loaded, com poster estático), restante em páginas internas. O GIF de 8.2 MB provavelmente vira frame estático. Performance é requisito, não preferência — aceitar o trade-off e otimizar.</div>
+</div>
+
+<div class="tension">
+  <div class="tension-title">Chibi vs. profissionalismo</div>
+  <p>Uma ilustração chibi num portfólio de desenvolvedor é uma escolha corajosa. Pode ler como "personalidade" ou como "imaturo", dependendo da execução.</p>
+  <div class="tension-resolution">Resolução: o chibi funciona porque é singular. O design ao redor é sério, preciso, adulto. O contraste é intencional — ele mostra que o desenvolvedor tem personalidade e não se leva a sério demais, sem comprometer a competência. Tamanho contido (~250px), uma aparição por página, sem bordas lúdicas ao redor.</div>
+</div>
+
+<div class="tension">
+  <div class="tension-title">Dark theme — identidade vs. inversão</div>
+  <p>A estética do filme é fundamentalmente "quente e clara" — o dark theme não pode ser uma inversão ingênua senão perde toda a identidade visual.</p>
+  <div class="tension-resolution">Resolução: o dark theme tem sua própria narrativa cinematográfica — as cenas noturnas do filme (hotel, oficina). Fundo azul-carvão (não marrom), texto creme (luz de lamparina), acentos aquecidos. Funciona como um capítulo diferente do mesmo filme, não como o filme em negativo.</div>
+</div>
+
+<div class="tension">
+  <div class="tension-title">horizon como label de tecnologia vs. contraste</div>
+  <p>O azul-horizonte (<code>#6F8D9E</code>) no light theme tem ratio 3.5:1 — passa para texto grande mas falha para texto pequeno. E é justamente em texto pequeno (eyebrows, tags) que ele aparece mais.</p>
+  <div class="tension-resolution">Resolução: usar <code>horizon</code> como cor de texto somente em eyebrows (que são uppercase com tracking aberto, funcionando visualmente como "grande" mesmo em fonte pequena) e nunca como cor única de link funcional. Para informação crítica em tamanho pequeno, usar <code>ink-2</code>. No dark theme, <code>#8AAABB</code> passa AA para tudo.</div>
+</div>
+
+<hr>
+
+<!-- ═══ 6. REFERÊNCIA TÉCNICA ═══ -->
+<span class="section-num">06 — Referência</span>
+<h2>Tokens CSS</h2>
+
+<p>Snippet para copiar direto no projeto Next.js. Todas as cores e tipografia via custom properties — um único ponto de verdade.</p>
+
+<div class="code-block" style="font-size:0.75rem;line-height:1.8">
+<span class="token-comment">/* fonts — Google Fonts link no &lt;head&gt; do layout */</span>
+<span class="token-comment">/* https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500</span>
+<span class="token-comment">   &family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;1,400</span>
+<span class="token-comment">   &family=JetBrains+Mono:wght@400&display=swap */</span>
+
+<span class="token-prop">:root</span> {
+  <span class="token-comment">/* Superfícies */</span>
+  <span class="token-prop">--bg</span>: <span class="token-val">#EFE9DD</span>;
+  <span class="token-prop">--bg-surface</span>: <span class="token-val">#F7F3EB</span>;
+  <span class="token-prop">--bg-elevated</span>: <span class="token-val">#FDFBF7</span>;
+
+  <span class="token-comment">/* Texto */</span>
+  <span class="token-prop">--ink</span>: <span class="token-val">#2A2420</span>;
+  <span class="token-prop">--ink-2</span>: <span class="token-val">#6B6055</span>;
+  <span class="token-prop">--ink-3</span>: <span class="token-val">#9A9183</span>;
+
+  <span class="token-comment">/* Acentos */</span>
+  <span class="token-prop">--terracotta</span>: <span class="token-val">#B86B4A</span>;  <span class="token-comment">/* headings, decorativo */</span>
+  <span class="token-prop">--terra-deep</span>: <span class="token-val">#9C5A3D</span>;  <span class="token-comment">/* links body text (AA) */</span>
+  <span class="token-prop">--terra-wash</span>: <span class="token-val">rgba(184,107,74,0.10)</span>;
+  <span class="token-prop">--horizon</span>: <span class="token-val">#6F8D9E</span>;     <span class="token-comment">/* secundário, eyebrows */</span>
+  <span class="token-prop">--hz-wash</span>: <span class="token-val">rgba(111,141,158,0.10)</span>;
+
+  <span class="token-comment">/* Estrutura */</span>
+  <span class="token-prop">--rule</span>: <span class="token-val">#D9D1C5</span>;
+  <span class="token-prop">--rule-sub</span>: <span class="token-val">#E5DED3</span>;
+
+  <span class="token-comment">/* Tipografia */</span>
+  <span class="token-prop">--display</span>: <span class="token-val">'EB Garamond', Georgia, serif</span>;
+  <span class="token-prop">--body</span>: <span class="token-val">'Source Sans 3', 'Helvetica Neue', sans-serif</span>;
+  <span class="token-prop">--mono</span>: <span class="token-val">'JetBrains Mono', Consolas, monospace</span>;
+}
+</div>
+
+<hr>
+
+<!-- ═══ 7. PRÓXIMOS PASSOS ═══ -->
+<span class="section-num">07 — Próximos passos</span>
+<h2>Decisões pendentes</h2>
+
+<h4>Para resolver antes de implementar</h4>
+<p><strong>CSS framework:</strong> Os tokens acima funcionam com CSS puro (custom properties), Tailwind (via <code>theme.extend</code>), ou CSS Modules. A escolha depende da preferência de DX e do que o design final exigir em termos de responsividade e estados. A recomendação deste guia: CSS Modules com custom properties — Tailwind adiciona abstração desnecessária quando o design system já está mapeado.</p>
+
+<p><strong>Chibi:</strong> Se ainda não foi criada, a ilustração precisa de: traços limpos (não outline pesado), paleta compatível com o terracota/creme, expressão que transmita "concentrado e curioso" (o Jiro de <em>Kaze Tachinu</em>), formato PNG ou SVG com transparência.</p>
+
+<p><strong>GIF <code>writing_desk_closeup_char.gif</code>:</strong> Decidir entre extrair frame estático ou usar somente em páginas internas. Os 8.2 MB tornam impraticável para a home.</p>
+
+<p><strong>Favicon:</strong> Uma opção coerente: silhueta de óculos redondos (referência ao Jiro) em terracota sobre transparente, em SVG. Simples, reconhecível em 16×16.</p>
+
+<script>
+  function setTheme(t) {
+    document.documentElement.setAttribute('data-theme', t);
+    document.getElementById('btn-light').classList.toggle('active', t === 'light');
+    document.getElementById('btn-dark').classList.toggle('active', t === 'dark');
+  }
+  // Iniciar no tema do sistema
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    setTheme('dark');
+  }
+</script>

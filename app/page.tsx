@@ -1,21 +1,25 @@
-import Link from "next/link";
+import { AcademicTrack } from "@/components/academic-track/academic-track";
+import { Capabilities } from "@/components/capabilities/capabilities";
+import { Hero } from "@/components/hero/hero";
+import { Horizon } from "@/components/horizon/horizon";
+import { Manifesto } from "@/components/manifesto/manifesto";
+import { SelectedWork } from "@/components/selected-work/selected-work";
+import { TrackTeaser } from "@/components/track-record/track-teaser";
 
-import { projects } from "@/data/projects";
-
-// Pagina provisoria: existe so para validar o export estatico e o deploy.
-// O conteudo real e a UI vem depois do aceite do design.
+// Home curada: cinema → papel → máquina → acadêmico → humano → horizonte
 export default function Home() {
   return (
-    <main>
-      <h1>Vitor Tavares</h1>
-      <p>Portfolio under construction.</p>
-      <ul>
-        {projects.map((project) => (
-          <li key={project.slug}>
-            <Link href={`/projects/${project.slug}`}>{project.name}</Link>
-          </li>
-        ))}
-      </ul>
-    </main>
+    <>
+      <Hero />
+      <main id="main" className="page-main">
+        <Manifesto />
+        <Capabilities />
+        <SelectedWork />
+        <AcademicTrack />
+        <TrackTeaser />
+      </main>
+      <Horizon />
+    </>
   );
 }
+

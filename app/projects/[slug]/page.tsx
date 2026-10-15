@@ -1,46 +1,25 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { ProjectDetail } from "@/components/project-detail/project-detail";
+import { allProjects, getCaseStudy } from "@/content/projects";
 
-import { projects } from "@/data/projects";
-
-// Sem este flag o export estatico recusa rotas dinamicas com dynamicParams padrao.
+// Apenas projetos com estudo de caso (8 projetos: 3 selecionados + 5 acadêmicos)
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return projects.map((project) => ({ slug: project.slug }));
+  return allProjects.filter((p) => p.caseStudy).map((p) => ({ slug: p.slug }));
 }
 
-export async function generateMetadata({
-  params,
-}: PageProps<"/projects/[slug]">): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const project = projects.find((item) => item.slug === slug);
-
-  if (!project) {
-    return {};
-  }
-
-  return {
-    title: project.name,
-    description: project.summary,
-    openGraph: { title: project.name, description: project.summary },
-  };
+  const p = getCaseStudy(slug);
+  return p ? { title: `${p.title} · Vitor Tavares Chaves`, description: p.summary } : {};
 }
 
-export default async function ProjectPage({
-  params,
-}: PageProps<"/projects/[slug]">) {
+export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const project = projects.find((item) => item.slug === slug);
-
-  if (!project) {
-    notFound();
-  }
-
-  return (
-    <main>
-      <h1>{project.name}</h1>
-      <p>{project.summary}</p>
-    </main>
-  );
+  const project = getCaseStudy(slug);
+  if (!project) notFound();
+  return <ProjectDetail project={project} />;
 }
+

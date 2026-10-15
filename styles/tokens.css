@@ -1,0 +1,58 @@
+/* Tokens independentes de ambiente: tipo, ritmo, movimento. Cores vivem em themes.css. */
+:root {
+  /* Fontes tipográficas calibradas com fallbacks universais */
+  --font-eb-garamond: "EB Garamond", Garamond, "Iowan Old Style", Georgia, serif;
+  --font-source-sans: "Source Sans 3", "Source Sans Pro", "Segoe UI", system-ui, sans-serif;
+  --font-jetbrains-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --font-display: var(--font-eb-garamond);
+  --font-sans: var(--font-source-sans);
+  --font-mono: var(--font-jetbrains-mono);
+
+  /* Escala tipográfica */
+  --fs-1: 0.6875rem;
+  --fs-2: 0.875rem;
+  --fs-3: 1rem;
+  --fs-4: 1.25rem;
+  --fs-5: 1.563rem;
+  --fs-6: 1.953rem;
+  --fs-7: 2.441rem;
+  --fs-8: 3.052rem;
+
+  /* Grid editorial */
+  --max: 1312px;
+  --gutter: 24px;
+  --pad-x: 64px;
+  --edge: max(var(--pad-x), calc((100% - var(--max)) / 2));
+  --nav-h: 72px;
+  --radius: 2px;
+
+  /* Movimento: quatro durações, quatro curvas, amplitudes fixas */
+  --duration-micro: 160ms;
+  --duration-short: 280ms;
+  --duration-medium: 520ms;
+  --duration-cinematic: 1200ms;
+  --duration-stagger: 40ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-enter: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-exit: cubic-bezier(0.55, 0.06, 0.68, 0.19);
+  --ease-cinematic: cubic-bezier(0.22, 1, 0.36, 1);
+  --amp-wind: 24px;
+  --amp-nudge: 4px;
+
+  /* Faixa da entrada aberta, usada pela transição de projeto */
+  --vt-top: 0px;
+  --vt-bottom: 0px;
+}
+
+@media (max-width: 1023px) {
+  :root {
+    --pad-x: 40px;
+  }
+}
+
+@media (max-width: 639px) {
+  :root {
+    --pad-x: 20px;
+  }
+}

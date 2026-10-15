@@ -1,0 +1,72 @@
+/* Diagramas: nós em tinta, arestas em horizonte, legenda em mono */
+.dg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.dg .n {
+  fill: var(--sheet);
+  stroke: var(--ink);
+  stroke-width: 1.25;
+  vector-effect: non-scaling-stroke;
+}
+.dg .n.is-planned {
+  fill: none;
+  stroke: var(--ink-2);
+  stroke-dasharray: 5 4;
+}
+.dg .e {
+  fill: none;
+  stroke: var(--horizon);
+  stroke-width: 1.5;
+  stroke-linecap: square;
+  vector-effect: non-scaling-stroke;
+}
+.dg .e.is-planned {
+  stroke-dasharray: 6 5;
+}
+.dg .lead {
+  fill: none;
+  stroke: var(--horizon);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+.dg .lbl {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  fill: var(--ink);
+}
+.dg .sub,
+.dg .ann {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  fill: var(--ink-2);
+}
+.dg .tb {
+  fill: var(--sheet);
+  stroke: var(--ink);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+.dg .tb-t {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  fill: var(--ink);
+}
+.dg .tb-s {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  fill: var(--ink-2);
+}
+/* Night: ink-2 não passa em bg-elevated (4.2:1), então a prancha aberta anota em ink */
+.env-night .is-elevated .dg .sub,
+.env-night .is-elevated .dg .ann,
+.env-night .is-elevated .dg .tb-s {
+  fill: var(--ink);
+}

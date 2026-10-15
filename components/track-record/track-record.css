@@ -1,0 +1,158 @@
+/* Human: superfície clara, linhas de período */
+.track {
+  position: relative;
+  background: var(--bg-surface);
+  padding-top: 128px;
+  padding-bottom: 128px;
+}
+.track__grid {
+  row-gap: 48px;
+}
+.track__heading {
+  grid-column: 1 / span 8;
+}
+.track__list {
+  grid-column: 3 / span 7;
+  border-bottom: 1px solid var(--rule);
+}
+.track__row {
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  align-items: baseline;
+  padding: 16px 0;
+  border-top: 1px solid var(--rule);
+}
+.track__org {
+  grid-column: 1 / span 3;
+}
+.track__summary {
+  grid-column: 4 / span 4;
+}
+.track__more {
+  grid-column: 3 / span 7;
+  margin: 0;
+}
+
+/* /about */
+.about {
+  position: relative;
+  min-height: 100vh;
+  background: var(--bg-surface);
+  padding-top: 168px;
+  padding-bottom: 128px;
+}
+.about__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+}
+.about__top {
+  row-gap: 40px;
+  align-items: start;
+}
+.about__title {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.about__chibi {
+  grid-column: 1 / span 2;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: 4px;
+}
+.about__chibi img {
+  width: 100%;
+  max-width: 150px;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.06));
+}
+.about__intro {
+  grid-column: 3 / span 6;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 58ch;
+}
+.about__intro p {
+  margin: 0;
+}
+.about__portrait {
+  grid-column: 9 / span 4;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+.about__portrait img {
+  width: 100%;
+  max-width: 290px;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid var(--rule);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+}
+
+/* Linhas da linha do tempo (também usadas pelo Workbench) */
+.brow {
+  padding: 20px 0;
+  border-top: 1px solid var(--rule);
+}
+.brow dl,
+.brow dd {
+  margin: 0;
+}
+.brow.col-heads {
+  border-top: 0;
+  padding: 0 0 12px;
+}
+.tl__period {
+  grid-column: 1 / span 2;
+  margin: 0;
+}
+.tl__who {
+  grid-column: 3 / span 3;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.tl__systems {
+  grid-column: 6 / span 3;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.tl__contribution {
+  grid-column: 9 / span 4;
+  margin: 0;
+}
+.tl__who > *,
+.tl__systems > * {
+  margin: 0;
+}
+
+@media (max-width: 1023px) {
+  .track__row {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 24px;
+  }
+  .track__grid,
+  .about__top {
+    row-gap: 32px;
+  }
+  .about__chibi img {
+    max-width: 120px;
+  }
+  .about__portrait {
+    align-items: flex-start;
+  }
+  .about__portrait img {
+    max-width: 240px;
+  }
+}

@@ -1,0 +1,124 @@
+.capabilities {
+  position: relative;
+  background: var(--bg);
+  padding-top: 32px;
+  padding-bottom: 128px;
+}
+.capabilities__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+}
+.capabilities__heading {
+  grid-column: 1 / span 8;
+}
+
+.cap-list {
+  border-top: 1px solid var(--rule);
+}
+.cap-item {
+  border-bottom: 1px solid var(--rule);
+}
+
+/* Linha de sumário: realce, régua terracota e seta respondem ao foco e ao hover */
+.cap {
+  position: relative;
+  width: 100%;
+  padding: 20px 0;
+  margin: 0;
+  align-items: baseline;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--duration-micro) var(--ease-standard);
+}
+.cap:hover,
+.cap:focus-visible,
+.cap[aria-expanded="true"] {
+  background-color: var(--terra-wash);
+}
+.cap::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: var(--terracotta);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--duration-medium) var(--ease-standard);
+}
+.cap:hover::after,
+.cap:focus-visible::after {
+  transform: scaleX(1);
+}
+.cap:hover .arrow {
+  transform: translateX(var(--amp-nudge));
+}
+
+.cap__n {
+  grid-column: 1 / span 1;
+}
+.cap__title {
+  grid-column: 2 / span 6;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cap__projects {
+  grid-column: 8 / span 2;
+}
+.cap__evidence {
+  grid-column: 10 / span 2;
+}
+.cap__arrow {
+  grid-column: 12 / span 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cap__panel {
+  padding: 8px 0 28px;
+}
+.cap__details {
+  grid-column: 2 / span 6;
+  margin: 0;
+  max-width: 68ch;
+}
+.cap__links {
+  grid-column: 8 / span 4;
+  display: flex;
+  flex-direction: column;
+}
+
+/* MACHINE · o controle responde em micro, o conteúdo em short, no lugar */
+.m-disclosure {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--duration-short) var(--ease-standard);
+}
+.m-disclosure.is-open {
+  grid-template-rows: 1fr;
+}
+.m-disclosure > * {
+  min-height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  transition: visibility 0s linear var(--duration-short);
+}
+.m-disclosure.is-open > * {
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .m-disclosure,
+  .m-disclosure > *,
+  .cap::after {
+    transition: none;
+  }
+}

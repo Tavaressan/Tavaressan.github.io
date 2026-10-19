@@ -98,7 +98,6 @@ const selected: Project[] = [
       spec: [
         { label: "Role", value: "Systems Architect & Full-Stack Developer" },
         { label: "Context", value: "Internship · Alfabra Elevadores" },
-        { label: "Code", value: "Private" },
         { label: "Period", value: "2025 – 2026" },
         { label: "Status", value: "Active development" },
       ],

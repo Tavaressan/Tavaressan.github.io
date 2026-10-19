@@ -1,7 +1,6 @@
 import type { WorkbenchItem } from "./types";
 
 // Cada item responde o que é, por que é usado e onde; o que não foi dito fica marcado.
-// Status (CURRENT / OCCASIONAL / EXPERIMENTAL) ainda não foi confirmado para nenhum item.
 export const workbenchGroups = [
   "Languages & Runtime",
   "Systems",
@@ -11,15 +10,34 @@ export const workbenchGroups = [
 ] as const;
 
 export const workbench: WorkbenchItem[] = [
-  { group: "Languages & Runtime", name: "TypeScript on Deno", kind: "Language and runtime", where: "The scripts of Vetor.", relatedProjects: ["vetor"] },
+  {
+    group: "Languages & Runtime",
+    name: "TypeScript on Deno",
+    kind: "Language and runtime",
+    purpose: "Isolated worktrees run without the problems that nested node_modules folders cause.",
+    where: "The scripts of Vetor.",
+    relatedProjects: ["vetor"],
+    status: "CURRENT",
+  },
   {
     group: "Languages & Runtime",
     name: "Spring Boot",
     kind: "Backend framework, in Java and in Kotlin",
+    purpose: "An industry standard for building reliable REST APIs.",
     where: "The Delphos core and the Cafey API.",
     relatedProjects: ["delphos", "cafey"],
+    status: "CURRENT",
   },
-  { group: "Languages & Runtime", name: "Next.js", kind: "Web frontend framework", where: "The Delphos frontend.", relatedProjects: ["delphos"] },
+  {
+    group: "Languages & Runtime",
+    name: "Next.js",
+    kind: "Web frontend framework",
+    purpose:
+      "SEO optimisation and an organised structure for single-page apps, with native integration into Vercel's preview and production deployments.",
+    where: "The Delphos frontend.",
+    relatedProjects: ["delphos"],
+    status: "CURRENT",
+  },
   {
     group: "Systems",
     name: "RabbitMQ",
@@ -27,55 +45,70 @@ export const workbench: WorkbenchItem[] = [
     purpose: "Jobs leave the core through a queue and workers process them asynchronously.",
     where: "Between the Delphos core and its workers.",
     relatedProjects: ["delphos"],
+    status: "OCCASIONAL",
   },
   {
     group: "Systems",
     name: "PostgreSQL and pgvector",
     kind: "Relational database with vector storage",
+    purpose: "A mature, reliable database, with an extension for the vector storage that RAG projects depend on.",
     where: "Embeddings in Delphos; application data in Cafey.",
     relatedProjects: ["delphos", "cafey"],
+    status: "CURRENT",
   },
   {
     group: "Systems",
     name: "MQTT and AWS IoT Core",
     kind: "Device messaging and a managed broker",
+    purpose: "Asynchronous, resilient messaging for edge devices, with managed cloud services for high availability.",
     where: "Between the Cafey module and the cloud, over TLS with X.509 certificates.",
     relatedProjects: ["cafey"],
+    status: "CURRENT",
   },
   {
     group: "Edge",
     name: "ESP32",
     kind: "Microcontroller",
+    purpose: "A good SoC for IoT prototypes: built-in Wi-Fi and BLE, and broad tooling support such as ESP-IDF.",
     where: "The Cafey module, with firmware in C++ on ESP-IDF; also the ESP32 IoT App in the archive.",
     relatedProjects: ["cafey"],
+    status: "CURRENT",
   },
   {
     group: "AI / Agents",
     name: "Agent runtimes",
     kind: "Environments that execute coding agents",
+    purpose: "They let me turn ideas into working projects faster.",
     where: "Vetor runs natively in one runtime, with partial compatibility in others.",
     relatedProjects: ["vetor"],
+    status: "CURRENT",
   },
   {
     group: "AI / Agents",
     name: "Retrieval-augmented generation",
     kind: "Retrieval over stored embeddings before generation",
+    purpose: "Grounds the AI in my projects on their sources, linking documents to the tasks it performs.",
     where: "The RAG workers of Delphos.",
     relatedProjects: ["delphos"],
+    status: "OCCASIONAL",
   },
   // O protótipo agrupava estas ferramentas como "Hardware"; equipamentos físicos ainda não foram confirmados
   {
     group: "Physical Workbench",
     name: "KiCad",
     kind: "Electronics design tool",
+    purpose: "Prototyping electrical schematics.",
     where: "The schematic, board and component libraries of Cafey.",
     relatedProjects: ["cafey"],
+    status: "EXPERIMENTAL",
   },
   {
     group: "Physical Workbench",
     name: "FreeCAD",
     kind: "Mechanical modelling tool",
+    purpose: "3D prototyping in CAD.",
     where: "The physical structure of the Cafey module, modelled for production.",
     relatedProjects: ["cafey"],
+    status: "EXPERIMENTAL",
   },
 ];

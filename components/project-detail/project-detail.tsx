@@ -159,26 +159,28 @@ export function ProjectDetail({ project }: { project: Project }) {
             </div>
           </Row>
 
-          <Row n="10" label="Links">
-            <h2 className="t-title2">Links</h2>
-            <ul className="list-reset links">
-              {(cs.links ?? []).map((l) => (
-                <li key={l.href}>
-                  <span className="t-body">{l.label}</span>
-                  <a
-                    className="foot-link t-meta"
-                    href={l.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`${l.label}: ${l.value ?? l.href} (opens in a new tab)`}
-                  >
-                    {l.value ?? l.href}
-                    <Arrow dir="external" />
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </Row>
+          {cs.links?.length ? (
+            <Row n="10" label="Links">
+              <h2 className="t-title2">Links</h2>
+              <ul className="list-reset links">
+                {(cs.links ?? []).map((l) => (
+                  <li key={l.href}>
+                    <span className="t-body">{l.label}</span>
+                    <a
+                      className="foot-link t-meta"
+                      href={l.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${l.label}: ${l.value ?? l.href} (opens in a new tab)`}
+                    >
+                      {l.value ?? l.href}
+                      <Arrow dir="external" />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </Row>
+          ) : null}
 
           <nav className="ret-grid" aria-label="Project navigation">
             <BackLink slug={project.slug} className="ret ret-back">

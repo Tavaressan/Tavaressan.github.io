@@ -88,9 +88,6 @@ const selected: Project[] = [
     stack: ["Java 21", "Spring Boot", "Rust", "Python", "CrewAI", "RabbitMQ", "PostgreSQL", "pgvector", "Next.js", "Vertex AI / Gemini", "MinIO / S3", "Docker"],
     status: "Active development",
     meta: ["Selected", "AI", "RAG", "Full-stack", "Java 21", "Distributed systems"],
-    repositories: [
-      { label: "View repository", value: "github.com/Tavaressan/delphos", href: "https://github.com/Tavaressan/delphos" },
-    ],
     caseStudy: {
       stackLine: ["Java 21", "Spring Boot", "Rust", "Python", "RabbitMQ", "PostgreSQL", "pgvector", "Next.js"],
       evidenceMark: "Architecture · Code · Decision",
@@ -100,13 +97,13 @@ const selected: Project[] = [
       },
       spec: [
         { label: "Role", value: "Systems Architect & Full-Stack Developer" },
-        { label: "Context", value: "Enterprise Agent Platform" },
+        { label: "Context", value: "Internship · Alfabra Elevadores" },
         { label: "Period", value: "2025 – 2026" },
         { label: "Status", value: "Active development" },
       ],
       problem:
         "Enterprise document ingestion and LLM retrieval pipelines suffer from high latency and tight coupling when processing unstructured data across multiple language runtimes.",
-      context: "Delphos is a modular platform for orchestrating AI agents with retrieval-augmented generation.",
+      context: "Delphos is a modular platform for orchestrating AI agents with retrieval-augmented generation, built during my internship at Alfabra Elevadores. The code is private, so this case study covers the architecture and my role without linking to the source.",
       objective: "Unify high-throughput document processing in Rust with enterprise business policies in Java and autonomous multi-agent crews in Python.",
       architecture:
         "A Next.js frontend talks to a Java and Spring Boot core. The core enqueues jobs on RabbitMQ, and specialised workers for ingestion, RAG and agent crews process them asynchronously. Rust services handle parallel data processing, a Python worker runs the agent crews with CrewAI, and embeddings are stored in PostgreSQL with pgvector. Documents go to MinIO or S3 object storage, generation runs on Vertex AI with Gemini, and the services are packaged with Docker.",
@@ -137,11 +134,10 @@ const selected: Project[] = [
           type: "CODE",
           ref: "E-02.1",
           title: "Java, Rust and Python in one repository",
-          description: "The published repository is the record of how the three runtimes are joined.",
-          source: { label: "View repository", value: "github.com/Tavaressan/delphos", href: "https://github.com/Tavaressan/delphos" },
+          description: "The three runtimes are joined in one repository, which is private and not linked here.",
+          source: { label: "Source", value: "Private repository" },
         },
       ],
-      links: [{ label: "View repository", value: "github.com/Tavaressan/delphos", href: "https://github.com/Tavaressan/delphos" }],
     },
   },
   {

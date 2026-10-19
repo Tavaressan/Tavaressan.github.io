@@ -33,7 +33,7 @@ export const workbench: WorkbenchItem[] = [
     name: "Next.js",
     kind: "Web frontend framework",
     purpose:
-      "SEO optimisation and an organised structure for single-page apps, with native integration into Vercel's testing and deployment environment.",
+      "SEO optimisation and an organised structure for single-page apps, with native integration into Vercel's preview and production deployments.",
     where: "The Delphos frontend.",
     relatedProjects: ["delphos"],
     status: "CURRENT",
